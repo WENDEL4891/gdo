@@ -1,17 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Calculadora de Indicadores</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    Teste
+    <div class="container">
+        <h1 class="mt-5">Calculadora de Indicadores</h1>        
+        <div class="row">
+            <!-- Indicador de Prisão Qualificada (IPQ) -->
+            <div class="col-md-4">
+                
+                <h2 class="mt-5">Indicador de Prisão Qualificada (IPQ)</h2>
+                <p>Fórmula: ( CMPAMV x 3) + (CMPAAVD x 1) + (CMPACCP x 1) + (CMPIF x 10) x 100 </p>
+                <form id="ipqForm" class="mt-4">
+                    <div class="form-group">
+                        <label for="CMPAMV">CMPAMV</label>
+                        <input type="number" class="form-control" id="CMPAMV" placeholder="Digite o valor de CMPAMV">
+                        <small class="form-text text-muted">Cumprimento de Mandado de Prisão / Apreensão de Autor *pretérito* de Morte Violenta.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="CMPAAVD">CMPAAVD</label>
+                        <input type="number" class="form-control" id="CMPAAVD" placeholder="Digite o valor de CMPAAVD">
+                        <small class="form-text text-muted">Cumprimento de Mandado de Prisão / Apreensão de Autor *pretérito* de Violência Doméstica.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="CMPACCP">CMPACCP</label>
+                        <input type="number" class="form-control" id="CMPACCP" placeholder="Digite o valor de CMPACCP">
+                        <small class="form-text text-muted">Cumprimento de Mandado de Prisão / Apreensão de Autor *pretérito* de Crime Contra o Patrimônio (Roubo, furto, Extorsão).</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="CMPIF">CMPIF</label>
+                        <input type="number" class="form-control" id="CMPIF" placeholder="Digite o valor de CMPIF">
+                        <small class="form-text text-muted">Cumprimento de Mandado de Prisão de Integrante de Facção Criminosa (Fonte: DINT - DEPEN).</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calcular IPQ</button>
+                    <button type="button" id="clearButton-ipq" class="btn btn-secondary">Limpar</button>
+                    </form>            
+                <div class="mt-3">
+                    <h3>Resultado: <span id="resultado-ipq"></span></h3>
+                </div>
+                
+            </div>
 
-    <p id="demo">Texto Original</p>
+            <!-- Indicador de Resposta Qualificada (IRQ) -->
+            <div class="col-md-4">
+                
+                <h2 class="mt-5">Indicador de Resposta Qualificada (IRQ)</h2>
+                <p>Fórmula: (PMV x 3 + PCCP x 1) x 100 / (Registros MV x 3 + Registros CCP x 1)</p>
+                <form id="irqForm">
+                    <div class="form-group">
+                        <label for="PMV">PMV</label>
+                        <input type="number" class="form-control" id="PMV" placeholder="Digite o valor de PMV">
+                        <small class="form-text text-muted">Registros com presos pelas naturezas do Indicador de Mortes Violentas (PMMG).</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="PCCP">PCCP</label>
+                        <input type="number" class="form-control" id="PCCP" placeholder="Digite o valor de PCCP">
+                        <small class="form-text text-muted">Registros com presos pelas naturezas do Indicador de Crimes contra o Patrimônio (PMMG).</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="RegistrosMV">Registros MV</label>
+                        <input type="number" class="form-control" id="RegistrosMV" placeholder="Digite o valor de Registros MV">
+                        <small class="form-text text-muted">REDS das naturezas de MV registrados.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="RegistrosCCP">Registros CCP</label>
+                        <input type="number" class="form-control" id="RegistrosCCP" placeholder="Digite o valor de Registros CCP">
+                        <small class="form-text text-muted">REDS das naturezas de CCP registrados.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calcular IRQ</button>
+                    <button type="button" id="clearButton-irq" class="btn btn-secondary">Limpar</button>
+                </form>                
+                <div class="mt-3">
+                    <h3>Resultado IRQ: <span id="resultado-irq"></span></h3>
+                </div>
+                
+            </div>
+            
+            <!-- Indicador de Prisão de Reincidentes Policiais (IPRP) -->
+            <div class="col-md-4">
+                <h2 class="mt-5">Indicador de Prisão de Reincidentes Policiais (IPRP)</h2>
+                <p>Fórmula: (PABR + PACR) x 100 / (TRGB + TRGC)</p>
+                <form id="iprpForm">
+                    <div class="form-group">
+                        <label for="PABR">PABR</label>
+                        <input type="number" class="form-control" id="PABR" placeholder="Total de prisões de homicídio/lesão corporal reincidentes">
+                        <small class="form-text text-muted">Total de prisões de autor/coautor/suspeito de Homicídio (B 01.121), Lesão Corporal (B 01.129) - tentados ou consumados, que sejam reincidentes criminais (PMMG).</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="PACR">PACR</label>
+                        <input type="number" class="form-control" id="PACR" placeholder="Total de prisões de roubo/receptação reincidentes">
+                        <small class="form-text text-muted">Total de prisões de autor/coautor/suspeito de Roubo (C 01.157) e Receptação (C 01.180) - tentados ou consumados, que sejam reincidentes criminais (PMMG).</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="TRGB">TRGB</label>
+                        <input type="number" class="form-control" id="TRGB" placeholder="Total de registros de crimes Grupo B">
+                        <small class="form-text text-muted">Total de registros de crimes do Grupo B, Classe 01 (PMMG+PCMG).</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="TRGC">TRGC</label>
+                        <input type="number" class="form-control" id="TRGC" placeholder="Total de registros de crimes Grupo C">
+                        <small class="form-text text-muted">Total de registros de crimes do Grupo C, Classe 01 (PMMG+PCMG).</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calcular IPRP</button>
+                    <button type="button" id="clearButton-iprp" class="btn btn-secondary">Limpar</button>
+                </form>
+                
+                <div class="mt-3">
+                    <h3>Resultado IPRP: <span id="resultado-iprp"></span></h3>
+                </div>
+            </div>
 
+        </div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
